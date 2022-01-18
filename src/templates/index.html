@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block header %}
+<a href="{{url_for('logout')}}">Cerrar sesión</a>
+{% endblock header %}
+{% block content %}
+
+
+<div class="title">INDEX, señores</div><br>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert {{category}}" id="error-message">
+                {{message}}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+</script>
+{% endblock content%}

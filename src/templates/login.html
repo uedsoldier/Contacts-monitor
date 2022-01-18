@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="align-content: center;">
+    <div id="login-welcome" class="centered">
+        <div class="centered">Bienvenido</div>
+    </div>
+    <div class="centered">
+        <form id="login-form" method="POST" action="{{url_for('plataforma')}}">
+            <!--{{ form.csrf }}-->
+            {{ form.login_user.label}}: {{form.login_user}}
+            <ul style="color: red;">
+                {% for error in form.login_user.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            <div>
+                {{ form.login_password.label}}: {{form.login_password}} <span toggle="#password-login" class="fa fa-fw fa-eye field-icon toggle-password" style="font-size: x-small;background: white; color: navy; border: 1px solid navy">Mostrar</span>
+            </div>
+            
+            <ul style="color: red;">
+                {% for error in form.login_password.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {{ form.submit}}
+            <input type="reset" class="form-button" id="form-reset" name="Limpiar" value="Limpiar"><br>
+        </form>
+    </div>
+<script type="text/javascript">
+    
+    $('.toggle-password').on( {click: function() {
+        var button = $(this);
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $("#password-login");
+        
+        if(input.attr('type') === 'password'){
+            input.attr('type','text')
+            button.text('Ocultar');
+        } else{
+            input.attr('type','password')
+            button.text('Mostrar');
+        }}
+    });
+</script>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert {{category}}" id="error-message">
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+{% endblock content %}
