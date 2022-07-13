@@ -16,7 +16,7 @@ def on_connect(client, userdata, flags, rc):
         print('Connected fail with code {}'.format(rc))
 
 def on_publish(client,userdata,result):             #create function for callback
-    print("data published")
+    print("data published.\nClient{}\nUserdata:{}\nResult:{}".format(client,userdata,result))
 
 context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
 client = mqtt.Client()
@@ -29,8 +29,8 @@ client.connect('192.168.0.12', 8883, 60)
 cnt = 0
 while(True):
     client.publish('test','Hola '+str(cnt),qos=2)
-    client.loop(0.1)
+    client.loop(0.2)
     cnt += 1
-    time.sleep(3)
+    time.sleep(5)
 
     
